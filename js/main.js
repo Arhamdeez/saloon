@@ -1,5 +1,5 @@
 /**
- * LUMIÈRE BEAUTY SALON
+ * Nadia's Saloon
  * Main JavaScript File
  */
 
@@ -25,16 +25,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // NAVBAR SCROLL EFFECT
     // ========================================
     const navbar = document.querySelector('.navbar');
+    let ticking = false;
     
     function handleScroll() {
-        if (window.scrollY > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
     }
     
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Check on load
     
     // ========================================
@@ -82,27 +89,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // ACTIVE NAV LINK ON SCROLL
     // ========================================
     const sections = document.querySelectorAll('section[id]');
+    let navTicking = false;
     
     function updateActiveNavLink() {
-        const scrollPosition = window.scrollY + 100;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
+        if (!navTicking) {
+            window.requestAnimationFrame(() => {
+                const scrollPosition = window.scrollY + 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
                     }
                 });
-            }
-        });
+                navTicking = false;
+            });
+            navTicking = true;
+        }
     }
     
-    window.addEventListener('scroll', updateActiveNavLink);
+    window.addEventListener('scroll', updateActiveNavLink, { passive: true });
     
     // ========================================
     // TESTIMONIALS SLIDER
@@ -166,9 +180,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
     
-    // Add fade-in class to elements
+    // Add fade-in class to elements (excluding gallery which uses React)
     const fadeElements = document.querySelectorAll(
-        '.about-grid, .service-card, .gallery-item, .team-card, .pricing-category, .booking-detail'
+        '.about-grid, .service-card, .team-card, .pricing-category, .booking-detail'
     );
     
     fadeElements.forEach((el, index) => {
@@ -191,99 +205,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
-    
-    // ========================================
-    // GALLERY LIGHTBOX (Simple Version)
-    // ========================================
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    
-    galleryItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const img = this.querySelector('img');
-            const imgSrc = img.src.replace('w=400', 'w=1200').replace('w=600', 'w=1200');
-            
-            // Create lightbox
-            const lightbox = document.createElement('div');
-            lightbox.className = 'lightbox';
-            lightbox.innerHTML = `
-                <div class="lightbox-overlay"></div>
-                <div class="lightbox-content">
-                    <button class="lightbox-close">&times;</button>
-                    <img src="${imgSrc}" alt="${img.alt}">
-                </div>
-            `;
-            
-            document.body.appendChild(lightbox);
-            document.body.style.overflow = 'hidden';
-            
-            // Add lightbox styles
-            const lightboxStyle = document.createElement('style');
-            lightboxStyle.textContent = `
-                .lightbox {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 10000;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    animation: fadeIn 0.3s ease;
-                }
-                .lightbox-overlay {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(26, 21, 18, 0.95);
-                }
-                .lightbox-content {
-                    position: relative;
-                    max-width: 90%;
-                    max-height: 90%;
-                }
-                .lightbox-content img {
-                    max-width: 100%;
-                    max-height: 90vh;
-                    object-fit: contain;
-                }
-                .lightbox-close {
-                    position: absolute;
-                    top: -40px;
-                    right: 0;
-                    background: none;
-                    border: none;
-                    color: #C4A484;
-                    font-size: 2rem;
-                    cursor: pointer;
-                    transition: color 0.3s ease;
-                }
-                .lightbox-close:hover {
-                    color: #fff;
-                }
-            `;
-            document.head.appendChild(lightboxStyle);
-            
-            // Close handlers
-            const closeLightbox = () => {
-                lightbox.remove();
-                lightboxStyle.remove();
-                document.body.style.overflow = '';
-            };
-            
-            lightbox.querySelector('.lightbox-overlay').addEventListener('click', closeLightbox);
-            lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
-            
-            document.addEventListener('keydown', function escHandler(e) {
-                if (e.key === 'Escape') {
-                    closeLightbox();
-                    document.removeEventListener('keydown', escHandler);
-                }
-            });
-        });
-    });
     
     // ========================================
     // BOOKING FORM HANDLING
@@ -335,7 +256,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = true;
                 
                 // In a real application, you would send this data to a server
-                console.log('Booking submitted:', data);
                 
                 // Reset form after delay
                 setTimeout(() => {
@@ -354,33 +274,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
-    // ========================================
-    // PARALLAX EFFECT FOR HERO
-    // ========================================
-    const heroBg = document.querySelector('.hero-bg');
-    
-    if (heroBg && window.innerWidth > 768) {
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            heroBg.style.transform = `translateY(${scrolled * 0.4}px)`;
-        });
-    }
-    
-    // ========================================
-    // SERVICE CARDS HOVER EFFECT
-    // ========================================
-    const serviceCards = document.querySelectorAll('.service-card');
-    
-    serviceCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.zIndex = '10';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.zIndex = '';
-        });
-    });
     
     // ========================================
     // COUNTER ANIMATION FOR EXPERIENCE
@@ -424,50 +317,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (phoneInput) {
         phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            
-            if (value.length > 10) {
-                value = value.slice(0, 10);
-            }
-            
-            if (value.length >= 6) {
-                value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
-            } else if (value.length >= 3) {
-                value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
-            }
-            
+            // Allow international format for Pakistani numbers
+            let value = e.target.value.replace(/[^\d+]/g, '');
             e.target.value = value;
         });
     }
-    
-    // ========================================
-    // LAZY LOADING IMAGES
-    // ========================================
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                imageObserver.unobserve(img);
-            }
-        });
-    }, { rootMargin: '50px' });
-    
-    images.forEach(img => imageObserver.observe(img));
-    
-    // ========================================
-    // CONSOLE BRANDING
-    // ========================================
-    console.log(
-        '%c✨ Nadia\'s Saloon ✨',
-        'font-family: Georgia, serif; font-size: 20px; color: #C9A962; font-weight: bold;'
-    );
-    console.log(
-        '%cWhere beauty meets artistry',
-        'font-family: Georgia, serif; font-size: 14px; color: #8B7355; font-style: italic;'
-    );
     
 });
