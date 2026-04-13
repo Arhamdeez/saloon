@@ -53,7 +53,6 @@ const galleryImages = [
   }
 ];
 
-// Mount the gallery to the gallery-root div
 const galleryRoot = document.getElementById('gallery-root');
 if (galleryRoot) {
   const root = ReactDOM.createRoot(galleryRoot);
@@ -67,6 +66,14 @@ if (galleryRoot) {
         segments={34}
         dragDampening={2}
         grayscale
+        autoRotate
+        autoRotateSpeed={5}
+        showVignette={false}
+        overlayBlurColor="transparent"
+        imageBorderRadius="20px"
+        openedImageBorderRadius="24px"
+        openedImageWidth="420px"
+        openedImageHeight="520px"
       />
     </React.StrictMode>
   );

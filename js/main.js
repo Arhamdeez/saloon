@@ -13,27 +13,32 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('load', function() {
         setTimeout(() => {
             preloader.classList.add('hidden');
-        }, 1000);
+        }, 300);
     });
     
-    // Fallback in case load event doesn't fire
     setTimeout(() => {
         preloader.classList.add('hidden');
-    }, 3000);
+    }, 2000);
     
     // ========================================
     // NAVBAR SCROLL EFFECT
     // ========================================
     const navbar = document.querySelector('.navbar');
+    const topbar = document.querySelector('.topbar');
     let ticking = false;
     
     function handleScroll() {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                if (window.scrollY > 100) {
+                const scrolled = window.scrollY > 100;
+                if (scrolled) {
                     navbar.classList.add('scrolled');
+                    if (topbar) topbar.classList.add('topbar--hidden');
+                    navbar.style.top = '0';
                 } else {
                     navbar.classList.remove('scrolled');
+                    if (topbar) topbar.classList.remove('topbar--hidden');
+                    navbar.style.top = '';
                 }
                 ticking = false;
             });
@@ -50,19 +55,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
+
+    const navBackdrop = document.createElement('div');
+    navBackdrop.className = 'nav-backdrop';
+    document.body.appendChild(navBackdrop);
+
+    function closeNav() {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        navBackdrop.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function openNav() {
+        hamburger.classList.add('active');
+        navMenu.classList.add('active');
+        navBackdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
     
     hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        if (navMenu.classList.contains('active')) {
+            closeNav();
+        } else {
+            openNav();
+        }
     });
+
+    navBackdrop.addEventListener('click', closeNav);
     
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        });
+        link.addEventListener('click', closeNav);
     });
     
     // ========================================
@@ -180,31 +203,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
     
-    // Add fade-in class to elements (excluding gallery which uses React)
     const fadeElements = document.querySelectorAll(
-        '.about-grid, .service-card, .team-card, .pricing-category, .booking-detail'
+        '.about-grid, .service-card, .team-card, .booking-detail'
     );
     
     fadeElements.forEach((el, index) => {
         el.classList.add('fade-in-element');
-        el.style.transitionDelay = `${index * 0.1}s`;
+        el.style.transitionDelay = `${index * 0.08}s`;
         fadeInObserver.observe(el);
     });
-    
-    // Add CSS for fade-in animation dynamically
-    const style = document.createElement('style');
-    style.textContent = `
-        .fade-in-element {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .fade-in-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    `;
-    document.head.appendChild(style);
     
     // ========================================
     // BOOKING FORM HANDLING
