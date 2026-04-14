@@ -61,7 +61,7 @@ const testimonialItems: CarouselItemData[] = [
     title: 'Ayesha Khan',
     role: 'Johar Town · Lahore',
     description:
-      "Been coming here for my highlights for almost two years. Nadia actually listens — the colour fades the way she said it would, not brassy after two weeks. Worth the drive even when traffic on Raiwind is bad.",
+      "My highlights and toner here always leave my hair looking expensive — warm, blended, and still healthy. In daylight and in photos I finally look like myself, just more polished.",
     avatarUrl:
       'https://ui-avatars.com/api/?name=Ayesha+Khan&background=e8dfd4&color=2a2218&size=128&rounded=true&bold=true'
   },
@@ -70,7 +70,7 @@ const testimonialItems: CarouselItemData[] = [
     title: 'Fatima Zahra',
     role: 'Bridal makeup · Valima',
     description:
-      "Did my valima look with them — makeup and hair stayed put through dinner and photos. My khala kept asking which salon; I’ve already sent two cousins on WhatsApp. Very hygienic, which matters to me.",
+      "Valima makeup and hair were exactly what I wanted — soft skin, defined eyes, nothing heavy. I still loved my face at midnight in the car mirror; the photos look like me on my best day.",
     avatarUrl:
       'https://ui-avatars.com/api/?name=Fatima+Zahra&background=ddd2c4&color=2a2218&size=128&rounded=true&bold=true'
   },
@@ -79,9 +79,54 @@ const testimonialItems: CarouselItemData[] = [
     title: 'Zainab Hussain',
     role: 'Gulberg · Lahore',
     description:
-      "Pricing is fair for Lahore and they don’t rush you out. Had a facial before Eid last year; skin was calm for family dinners. Booking on WhatsApp is straightforward — they reply when the salon’s open.",
+      "Eid makeup here last year — luminous skin, neat brows, a lip that didn’t disappear after lunch. I got compliments all day; my sister said my face looked ‘fresh’ even after the heat.",
     avatarUrl:
       'https://ui-avatars.com/api/?name=Zainab+Hussain&background=c9b8a8&color=1a1512&size=128&rounded=true&bold=true'
+  },
+  {
+    id: 4,
+    title: 'Sana Malik',
+    role: 'DHA · Lahore',
+    description:
+      "Mehndi-night glam — bronze eyes, flushed cheeks, liner that didn’t smudge when I teared up. I felt confident in close-ups; the look matched my outfit without stealing the show.",
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Sana+Malik&background=e5dcd0&color=2a2218&size=128&rounded=true&bold=true'
+  },
+  {
+    id: 5,
+    title: 'Hira Tariq',
+    role: 'Hair colour · Roots touch-up',
+    description:
+      "Colour and blow-dry before a dinner — my hair looked glossy and the tone suited my skin. People asked if I’d done something new with my makeup; it was really the hair framing my face.",
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Hira+Tariq&background=d4c4b4&color=1a1512&size=128&rounded=true&bold=true'
+  },
+  {
+    id: 6,
+    title: 'Maryam Sheikh',
+    role: 'Model Town · Lahore',
+    description:
+      "Mother–daughter day: soft makeup for her, a clean glow for me. She doesn’t wear much usually but she smiled at herself in the mirror — that was worth everything.",
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Maryam+Sheikh&background=efe6dc&color=2a2218&size=128&rounded=true&bold=true'
+  },
+  {
+    id: 7,
+    title: 'Noor Fatima',
+    role: 'Engagement makeup',
+    description:
+      "Engagement glam — skin looked real, not mask-like, and the eyes photographed beautifully under harsh hall lights. Trial run meant no surprises; I walked in knowing I’d love my face.",
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Noor+Fatima&background=c9b8a8&color=1a1512&size=128&rounded=true&bold=true'
+  },
+  {
+    id: 8,
+    title: 'Rabia Iqbal',
+    role: 'Wapda Town · Lahore',
+    description:
+      "Evening event makeup — smoky eye, nude lip, skin that still looked dewy hours later. I kept checking my reflection; it was the first time in ages I felt that put-together in person, not just in filters.",
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Rabia+Iqbal&background=ddd2c4&color=2a2218&size=128&rounded=true&bold=true'
   }
 ];
 
@@ -107,10 +152,11 @@ function TestimonialsCarousel() {
         baseWidth={baseWidth}
         items={testimonialItems}
         autoplay
-        autoplayDelay={4000}
+        autoplayDelay={6500}
         pauseOnHover
         loop
         round={false}
+        smoothSlide
       />
     </div>
   );

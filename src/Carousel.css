@@ -157,25 +157,46 @@
 }
 
 .carousel-indicators {
-  margin-top: 12px;
+  margin-top: 14px;
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
   padding: 0;
   width: auto;
 }
 
 .carousel-indicator {
-  height: 6px;
-  width: 6px;
-  border-radius: 50%;
+  flex-shrink: 0;
   cursor: pointer;
-  transition: background-color 150ms, transform 150ms;
+  border: none;
+  padding: 0;
+  transition:
+    width 0.35s cubic-bezier(0.22, 0.94, 0.36, 1),
+    background-color 0.35s ease,
+    transform 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .carousel-indicator.active {
-  background-color: #c9a962;
+  width: 22px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #b8984a 0%, #c9a962 50%, #d4b86a 100%);
+  box-shadow: 0 0 12px rgba(201, 169, 98, 0.35);
+  transform: scale(1);
+  opacity: 1;
 }
 
 .carousel-indicator.inactive {
-  background-color: rgba(201, 169, 98, 0.28);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(201, 169, 98, 0.22);
+  opacity: 0.75;
+}
+
+.carousel-indicator.inactive:hover {
+  background-color: rgba(201, 169, 98, 0.4);
+  opacity: 1;
 }

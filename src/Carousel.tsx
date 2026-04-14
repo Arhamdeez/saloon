@@ -37,7 +37,11 @@ const DEFAULT_ITEMS: CarouselItemData[] = [
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
-const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 300, damping: 30 };
+/** Smooth slide — easier to read than snappy spring */
+const SLIDE_TWEEN = { type: 'tween' as const, duration: 0.55, ease: [0.22, 0.94, 0.36, 1] as const };
+const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 220, damping: 34, mass: 0.85 };
+
+type SlideTransition = typeof SLIDE_TWEEN | typeof SPRING_OPTIONS | { duration: number };
 
 type CarouselItemProps = {
   item: CarouselItemData;
@@ -46,12 +50,13 @@ type CarouselItemProps = {
   round: boolean;
   trackItemOffset: number;
   x: ReturnType<typeof useMotionValue<number>>;
-  transition: typeof SPRING_OPTIONS | { duration: number };
+  transition: SlideTransition;
 };
 
 function CarouselItem({ item, index, itemWidth, round, trackItemOffset, x, transition }: CarouselItemProps) {
   const range = [-(index + 1) * trackItemOffset, -index * trackItemOffset, -(index - 1) * trackItemOffset];
-  const outputRange = [90, 0, -90];
+  /* Subtle tilt — full ±90° felt harsh for text reviews */
+  const outputRange = [22, 0, -22];
   const rotateY = useTransform(x, range, outputRange, { clamp: false });
 
   return (
@@ -95,6 +100,8 @@ export type CarouselProps = {
   pauseOnHover?: boolean;
   loop?: boolean;
   round?: boolean;
+  /** Use eased tween instead of spring for calmer slides (recommended for testimonials) */
+  smoothSlide?: boolean;
 };
 
 export default function Carousel({
@@ -104,7 +111,8 @@ export default function Carousel({
   autoplayDelay = 3000,
   pauseOnHover = false,
   loop = false,
-  round = false
+  round = false,
+  smoothSlide = false
 }: CarouselProps) {
   const containerPadding = 16;
   const itemWidth = baseWidth - containerPadding * 2;
@@ -120,8 +128,17 @@ export default function Carousel({
   const [isHovered, setIsHovered] = useState(false);
   const [isJumping, setIsJumping] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
   useEffect(() => {
     if (pauseOnHover && containerRef.current) {
       const container = containerRef.current;
@@ -137,15 +154,18 @@ export default function Carousel({
   }, [pauseOnHover]);
 
   useEffect(() => {
-    if (!autoplay || itemsForRender.length <= 1) return undefined;
+    const allowAutoplay = autoplay && !reduceMotion && itemsForRender.length > 1;
+    if (!allowAutoplay) return undefined;
     if (pauseOnHover && isHovered) return undefined;
 
-    const timer = setInterval(() => {
+    const tick = () => {
+      if (typeof document !== 'undefined' && document.hidden) return;
       setPosition(prev => Math.min(prev + 1, itemsForRender.length - 1));
-    }, autoplayDelay);
+    };
 
-    return () => clearInterval(timer);
-  }, [autoplay, autoplayDelay, isHovered, pauseOnHover, itemsForRender.length]);
+    const timer = window.setInterval(tick, autoplayDelay);
+    return () => window.clearInterval(timer);
+  }, [autoplay, autoplayDelay, isHovered, pauseOnHover, reduceMotion, itemsForRender.length]);
 
   useEffect(() => {
     const startingPosition = loop ? 1 : 0;
@@ -159,7 +179,15 @@ export default function Carousel({
     }
   }, [itemsForRender.length, loop, position]);
 
-  const effectiveTransition = isJumping ? { duration: 0 } : SPRING_OPTIONS;
+  const slideTransition: SlideTransition = smoothSlide
+    ? reduceMotion
+      ? { type: 'tween', duration: 0.2, ease: [0.4, 0, 0.2, 1] as const }
+      : SLIDE_TWEEN
+    : reduceMotion
+      ? { type: 'spring', stiffness: 400, damping: 40 }
+      : SPRING_OPTIONS;
+
+  const effectiveTransition: SlideTransition = isJumping ? { duration: 0 } : slideTransition;
 
   const handleAnimationStart = () => {
     setIsAnimating(true);
@@ -280,12 +308,18 @@ export default function Carousel({
           {items.map((_, index) => (
             <motion.div
               key={index}
+              role="tab"
+              tabIndex={0}
+              aria-selected={activeIndex === index}
+              aria-label={`Review ${index + 1} of ${items.length}`}
               className={`carousel-indicator ${activeIndex === index ? 'active' : 'inactive'}`}
-              animate={{
-                scale: activeIndex === index ? 1.2 : 1
-              }}
               onClick={() => setPosition(loop ? index + 1 : index)}
-              transition={{ duration: 0.15 }}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setPosition(loop ? index + 1 : index);
+                }
+              }}
             />
           ))}
         </div>

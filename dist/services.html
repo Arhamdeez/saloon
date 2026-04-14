@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
-  <link rel="stylesheet" crossorigin href="/assets/style-DGRwi_x3.css">
+  <link rel="stylesheet" crossorigin href="/assets/style-CfWUyOBV.css">
 </head>
 <body>
 
@@ -220,7 +220,7 @@
                     </div>
                     <div class="footer-contact">
                         <h4>Contact</h4>
-                        <p>125-B, TNT Phase, Abpara Housing Society<br>Raiwind Road · Lahore, Pakistan</p>
+                        <p>125-B TNT Abpara Housing Society<br>Raiwind Road · Lahore, Pakistan</p>
                         <p><a href="tel:+923214927889">+92 321 492 7889</a></p>
                         <p style="margin-top: 0.5rem;">
                             <a href="https://wa.me/923214927889" target="_blank" class="whatsapp-link" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #25D366; font-weight: 500;">
@@ -241,11 +241,16 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <p>&copy; 2026 Nadia's Saloon. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                <div class="footer-bottom__row">
+                    <p>&copy; 2026 Nadia's Saloon. All rights reserved.</p>
+                    <div class="footer-legal">
+                        <a href="/privacy-policy.html">Privacy Policy</a>
+                        <a href="/terms-of-service.html">Terms of Service</a>
+                    </div>
                 </div>
+                <p class="footer-powered">
+                    <a href="https://vawcom.com" target="_blank" rel="noopener noreferrer">Powered by VAWCOM</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -258,31 +263,45 @@
 
         const navBackdrop = document.createElement('div');
         navBackdrop.className = 'nav-backdrop';
+        navBackdrop.setAttribute('aria-hidden', 'true');
         document.body.appendChild(navBackdrop);
 
         function closeNav() {
+            if (!hamburger || !navMenu) return;
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             navBackdrop.classList.remove('active');
             document.body.style.overflow = '';
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-label', 'Open menu');
+            navBackdrop.setAttribute('aria-hidden', 'true');
         }
 
-        hamburger.addEventListener('click', function() {
-            if (navMenu.classList.contains('active')) {
-                closeNav();
-            } else {
-                hamburger.classList.add('active');
-                navMenu.classList.add('active');
-                navBackdrop.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
+        function openNav() {
+            if (!hamburger || !navMenu) return;
+            hamburger.classList.add('active');
+            navMenu.classList.add('active');
+            navBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            hamburger.setAttribute('aria-expanded', 'true');
+            hamburger.setAttribute('aria-label', 'Close menu');
+            navBackdrop.setAttribute('aria-hidden', 'false');
+        }
 
-        navBackdrop.addEventListener('click', closeNav);
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', closeNav);
-        });
+        if (hamburger && navMenu) {
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.addEventListener('click', function () {
+                if (navMenu.classList.contains('active')) {
+                    closeNav();
+                } else {
+                    openNav();
+                }
+            });
+            navBackdrop.addEventListener('click', closeNav);
+            document.querySelectorAll('.nav-link').forEach(function (link) {
+                link.addEventListener('click', closeNav);
+            });
+        }
 
         let ticking = false;
         function handleScroll() {

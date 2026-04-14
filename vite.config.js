@@ -15,6 +15,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         services: resolve(__dirname, 'services.html'),
+        privacy: resolve(__dirname, 'privacy-policy.html'),
+        terms: resolve(__dirname, 'terms-of-service.html'),
       },
     },
   }
