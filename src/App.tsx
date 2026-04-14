@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import DomeGallery from './DomeGallery';
 import Carousel from './Carousel';
@@ -113,28 +113,42 @@ function TestimonialsCarousel() {
   );
 }
 
+function ResponsiveGallery() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const isMobile = windowWidth < 768;
+  const galleryProps = useMemo(() => ({
+    images: galleryImages,
+    fit: isMobile ? 0.95 : 0.8,
+    minRadius: isMobile ? 300 : 600,
+    maxVerticalRotationDeg: 0,
+    segments: isMobile ? 20 : 34,
+    dragDampening: 2,
+    grayscale: true,
+    autoRotate: true,
+    autoRotateSpeed: 5,
+    showVignette: false,
+    overlayBlurColor: 'transparent' as const,
+    imageBorderRadius: isMobile ? '12px' : '20px',
+    openedImageBorderRadius: isMobile ? '16px' : '24px',
+    openedImageWidth: isMobile ? `${Math.min(windowWidth - 32, 320)}px` : '420px',
+    openedImageHeight: isMobile ? `${Math.min(Math.round((windowWidth - 32) * 1.2), 420)}px` : '520px',
+  }), [isMobile, windowWidth]);
+
+  return <DomeGallery {...galleryProps} />;
+}
+
 const galleryRoot = document.getElementById('gallery-root');
 if (galleryRoot) {
   const root = ReactDOM.createRoot(galleryRoot);
   root.render(
     <React.StrictMode>
-      <DomeGallery
-        images={galleryImages}
-        fit={0.8}
-        minRadius={600}
-        maxVerticalRotationDeg={0}
-        segments={34}
-        dragDampening={2}
-        grayscale
-        autoRotate
-        autoRotateSpeed={5}
-        showVignette={false}
-        overlayBlurColor="transparent"
-        imageBorderRadius="20px"
-        openedImageBorderRadius="24px"
-        openedImageWidth="420px"
-        openedImageHeight="520px"
-      />
+      <ResponsiveGallery />
     </React.StrictMode>
   );
 }

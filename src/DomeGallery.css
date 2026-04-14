@@ -256,3 +256,13 @@ main.sphere-main {
   display: block;
   filter: var(--image-filter, none);
 }
+
+@media (max-width: 768px) {
+  .dg-lightbox-overlay {
+    border-radius: 16px;
+  }
+
+  .item__image {
+    inset: 4px;
+  }
+}

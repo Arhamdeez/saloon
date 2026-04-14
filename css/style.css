@@ -277,12 +277,12 @@ h4 { font-size: 1.25rem; }
 
 .preloader-text {
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: clamp(1.5rem, 5vw, 3rem);
     letter-spacing: 0.2em;
 }
 
 .preloader-text .signature {
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 12vw, 5rem);
     letter-spacing: 0.05em;
     animation: signaturePulse 1.5s ease-in-out infinite;
 }
@@ -969,6 +969,9 @@ a.topbar__item:hover {
     max-height: 700px;
     min-height: 400px;
     margin-top: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
 }
 
 /* ========================================
