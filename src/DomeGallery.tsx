@@ -514,7 +514,11 @@ export default function DomeGallery({
         }
       },
     },
-    { target: mainRef, eventOptions: { passive: true } },
+    {
+      target: mainRef,
+      drag: { filterTaps: true, axis: 'lock' },
+      eventOptions: { passive: true },
+    },
   )
 
   const onGalleryPointerLeave = useCallback(() => {

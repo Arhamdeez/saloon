@@ -142,50 +142,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', updateActiveNavLink, { passive: true });
     
     // ========================================
-    // TESTIMONIALS SLIDER
-    // ========================================
-    const testimonialCards = document.querySelectorAll('.testimonial-card');
-    const dots = document.querySelectorAll('.testimonial-dots .dot');
-    let currentTestimonial = 0;
-    let testimonialInterval;
-    
-    function showTestimonial(index) {
-        testimonialCards.forEach((card, i) => {
-            card.classList.remove('active');
-            dots[i].classList.remove('active');
-        });
-        
-        testimonialCards[index].classList.add('active');
-        dots[index].classList.add('active');
-        currentTestimonial = index;
-    }
-    
-    function nextTestimonial() {
-        const next = (currentTestimonial + 1) % testimonialCards.length;
-        showTestimonial(next);
-    }
-    
-    // Auto-rotate testimonials
-    function startTestimonialRotation() {
-        testimonialInterval = setInterval(nextTestimonial, 5000);
-    }
-    
-    function stopTestimonialRotation() {
-        clearInterval(testimonialInterval);
-    }
-    
-    // Click handlers for dots
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            stopTestimonialRotation();
-            showTestimonial(index);
-            startTestimonialRotation();
-        });
-    });
-    
-    startTestimonialRotation();
-    
-    // ========================================
     // SCROLL ANIMATIONS
     // ========================================
     const observerOptions = {
@@ -204,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
     
     const fadeElements = document.querySelectorAll(
-        '.about-grid, .service-card, .team-card, .booking-detail'
+        '.about-teaser__inner, .service-card, .team-card, .booking-detail'
     );
     
     fadeElements.forEach((el, index) => {

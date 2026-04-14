@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import DomeGallery from './DomeGallery';
+import Carousel from './Carousel';
+import type { CarouselItemData } from './Carousel';
 
 const galleryImages = [
   {
@@ -53,6 +55,64 @@ const galleryImages = [
   }
 ];
 
+const testimonialItems: CarouselItemData[] = [
+  {
+    id: 1,
+    title: 'Alexandra M.',
+    role: 'Regular Client',
+    description:
+      "Nadia's transformed not just my hair, but my entire confidence. The team understood exactly what I wanted and delivered beyond my expectations. The atmosphere is pure luxury!",
+    avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100'
+  },
+  {
+    id: 2,
+    title: 'Jennifer L.',
+    role: 'Bridal Client',
+    description:
+      "My wedding day was perfect thanks to the incredible team at Nadia's. From the trial to the big day, they made me feel like a princess. Absolutely recommend for brides!",
+    avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100'
+  },
+  {
+    id: 3,
+    title: 'Sarah K.',
+    role: 'Color Client',
+    description:
+      "I've been coming to Nadia's for three years and wouldn't trust anyone else with my color. The colorists here are true artists – my balayage always looks natural and stunning.",
+    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'
+  }
+];
+
+function TestimonialsCarousel() {
+  const [baseWidth, setBaseWidth] = useState(300);
+  useEffect(() => {
+    const update = () => setBaseWidth(Math.min(340, Math.max(260, window.innerWidth - 48)));
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <Carousel
+        baseWidth={baseWidth}
+        items={testimonialItems}
+        autoplay
+        autoplayDelay={4000}
+        pauseOnHover
+        loop
+        round={false}
+      />
+    </div>
+  );
+}
+
 const galleryRoot = document.getElementById('gallery-root');
 if (galleryRoot) {
   const root = ReactDOM.createRoot(galleryRoot);
@@ -75,6 +135,16 @@ if (galleryRoot) {
         openedImageWidth="420px"
         openedImageHeight="520px"
       />
+    </React.StrictMode>
+  );
+}
+
+const testimonialsRoot = document.getElementById('testimonials-root');
+if (testimonialsRoot) {
+  const root = ReactDOM.createRoot(testimonialsRoot);
+  root.render(
+    <React.StrictMode>
+      <TestimonialsCarousel />
     </React.StrictMode>
   );
 }

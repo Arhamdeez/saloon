@@ -1,0 +1,171 @@
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(201, 169, 98, 0.22);
+  border-radius: 20px;
+  padding: 12px;
+  --outer-r: 20px;
+  --p-distance: 10px;
+  margin-inline: auto;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+}
+
+.carousel-track {
+  display: flex;
+  touch-action: pan-y;
+}
+
+.carousel-item {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border: 1px solid rgba(201, 169, 98, 0.18);
+  border-radius: calc(var(--outer-r) - var(--p-distance));
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(201, 169, 98, 0.04) 100%);
+  overflow: hidden;
+  cursor: grab;
+}
+
+.carousel-item:active {
+  cursor: grabbing;
+}
+
+.carousel-container.round {
+  border: 1px solid rgba(201, 169, 98, 0.22);
+}
+
+.carousel-item.round {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(201, 169, 98, 0.04) 100%);
+  position: relative;
+  bottom: 0.1em;
+  border: 1px solid rgba(201, 169, 98, 0.18);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.carousel-item-header.round {
+  padding: 0;
+  margin: 0;
+}
+
+.carousel-indicators-container.round {
+  position: absolute;
+  z-index: 2;
+  bottom: 3em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-item-header {
+  padding: 16px 16px 0;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.carousel-icon-container {
+  display: flex;
+  height: 28px;
+  width: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #fff;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.carousel-icon-container:has(.carousel-avatar) {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(201, 169, 98, 0.4);
+}
+
+.carousel-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-icon {
+  height: 16px;
+  width: 16px;
+  color: #060010;
+}
+
+.carousel-item-meta {
+  min-width: 0;
+}
+
+.carousel-item-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: #faf8f5;
+  line-height: 1.2;
+  font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
+}
+
+.carousel-item-role {
+  font-size: 10px;
+  color: rgba(201, 169, 98, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 2px;
+}
+
+.carousel-item-content {
+  padding: 12px 16px 16px;
+}
+
+.carousel-stars {
+  color: #c9a962;
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.carousel-item-description {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(250, 248, 245, 0.78);
+  margin: 0;
+  font-style: italic;
+}
+
+.carousel-indicators-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.carousel-indicators {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  padding: 0;
+  width: auto;
+}
+
+.carousel-indicator {
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 150ms, transform 150ms;
+}
+
+.carousel-indicator.active {
+  background-color: #c9a962;
+}
+
+.carousel-indicator.inactive {
+  background-color: rgba(201, 169, 98, 0.25);
+}
