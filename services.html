@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0D0D0D">
+    <meta name="color-scheme" content="light dark">
     <title>Our Services | Nadia's Saloon</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +40,7 @@
                 <span class="logo-text"><span class="signature">Nadia's</span></span>
                 <span class="logo-tagline">Saloon</span>
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="primary-menu">
                 <li><a href="/" class="nav-link">Home</a></li>
                 <li><a href="/about.html" class="nav-link">About</a></li>
                 <li><a href="/services.html" class="nav-link active">Services</a></li>
@@ -48,7 +50,7 @@
                 <li><a href="/contact.html" class="nav-link">Contact</a></li>
             </ul>
             <a href="/contact.html" class="nav-cta">Book Now</a>
-            <button class="hamburger" aria-label="Toggle menu">
+            <button type="button" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -64,160 +66,102 @@
             <span class="section-subtitle">What We Offer</span>
             <h1 class="svc-hero__title">Our Services</h1>
             <p class="svc-hero__desc">
-                Every treatment is a bespoke experience — crafted with precision, 
-                delivered with care, and designed to make you feel extraordinary.
+                Hair, color, skin, nails, and bridal — concise menus, meticulous work. Book what you need; we handle the rest.
             </p>
         </div>
     </section>
 
-    <!-- Services Grid -->
+    <!-- Services — compact grid -->
     <section class="svc-main">
         <div class="container">
+            <div class="svc-grid">
 
-            <!-- Hair Styling -->
-            <div class="svc-card svc-card--wide">
-                <div class="svc-card__image">
-                    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800" alt="Hair Styling">
-                    <div class="svc-card__image-overlay"></div>
-                </div>
-                <div class="svc-card__body">
-                    <span class="svc-card__number">01</span>
-                    <h2 class="svc-card__title">Hair Styling</h2>
-                    <p class="svc-card__text">
-                        From precision cuts to elaborate updos, our master stylists sculpt looks 
-                        that define you. Whether it's a sleek blowout, textured layers, or a complete 
-                        transformation — every strand is placed with intention.
-                    </p>
-                    <ul class="svc-card__highlights">
-                        <li>Precision Cuts & Layers</li>
-                        <li>Blowout & Styling</li>
-                        <li>Bridal & Event Updos</li>
-                        <li>Deep Conditioning Treatments</li>
-                    </ul>
-                    <a href="/contact.html" class="btn btn-primary">Book This Service</a>
-                </div>
+                <article class="svc-mini">
+                    <div class="svc-mini__media">
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&q=80" alt="Hair styling" width="500" height="280" loading="lazy">
+                    </div>
+                    <div class="svc-mini__body">
+                        <span class="svc-mini__eyebrow">01 · Hair</span>
+                        <h2 class="svc-mini__title">Hair styling</h2>
+                        <p class="svc-mini__text">Cuts, styling, and event-ready looks.</p>
+                        <ul class="svc-mini__tags" aria-label="Includes">
+                            <li>Cuts &amp; layers</li>
+                            <li>Blowouts</li>
+                            <li>Bridal updos</li>
+                        </ul>
+                        <a href="/contact.html" class="btn btn-primary svc-mini__btn">Book</a>
+                    </div>
+                </article>
+
+                <article class="svc-mini">
+                    <div class="svc-mini__media">
+                        <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&q=80" alt="Hair color" width="500" height="280" loading="lazy">
+                    </div>
+                    <div class="svc-mini__body">
+                        <span class="svc-mini__eyebrow">02 · Color</span>
+                        <h2 class="svc-mini__title">Color &amp; highlights</h2>
+                        <p class="svc-mini__text">Dimensional color and healthy shine.</p>
+                        <ul class="svc-mini__tags" aria-label="Includes">
+                            <li>Balayage</li>
+                            <li>Roots &amp; full color</li>
+                            <li>Corrections</li>
+                        </ul>
+                        <a href="/contact.html" class="btn btn-primary svc-mini__btn">Book</a>
+                    </div>
+                </article>
+
+                <article class="svc-mini">
+                    <div class="svc-mini__media">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt="Facial treatment" width="500" height="280" loading="lazy">
+                    </div>
+                    <div class="svc-mini__body">
+                        <span class="svc-mini__eyebrow">03 · Skin</span>
+                        <h2 class="svc-mini__title">Facial treatments</h2>
+                        <p class="svc-mini__text">Facials tailored to your skin goals.</p>
+                        <ul class="svc-mini__tags" aria-label="Includes">
+                            <li>Hydration</li>
+                            <li>Brightening</li>
+                            <li>Anti-aging</li>
+                        </ul>
+                        <a href="/contact.html" class="btn btn-primary svc-mini__btn">Book</a>
+                    </div>
+                </article>
+
+                <article class="svc-mini">
+                    <div class="svc-mini__media">
+                        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=80" alt="Nails" width="500" height="280" loading="lazy">
+                    </div>
+                    <div class="svc-mini__body">
+                        <span class="svc-mini__eyebrow">04 · Nails</span>
+                        <h2 class="svc-mini__title">Nail artistry</h2>
+                        <p class="svc-mini__text">Manis, pedis, gel, and detail work.</p>
+                        <ul class="svc-mini__tags" aria-label="Includes">
+                            <li>Gel &amp; extensions</li>
+                            <li>Art &amp; French</li>
+                            <li>Paraffin care</li>
+                        </ul>
+                        <a href="/contact.html" class="btn btn-primary svc-mini__btn">Book</a>
+                    </div>
+                </article>
+
+                <article class="svc-mini">
+                    <div class="svc-mini__media">
+                        <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=500&q=80" alt="Bridal makeup" width="500" height="280" loading="lazy">
+                    </div>
+                    <div class="svc-mini__body">
+                        <span class="svc-mini__eyebrow">05 · Bridal</span>
+                        <h2 class="svc-mini__title">Bridal &amp; makeup</h2>
+                        <p class="svc-mini__text">Trials, wedding day, and occasion glam.</p>
+                        <ul class="svc-mini__tags" aria-label="Includes">
+                            <li>Bridal packages</li>
+                            <li>Trials</li>
+                            <li>Event makeup</li>
+                        </ul>
+                        <a href="/contact.html" class="btn btn-primary svc-mini__btn">Book</a>
+                    </div>
+                </article>
+
             </div>
-
-            <!-- Color & Highlights -->
-            <div class="svc-card svc-card--wide svc-card--reverse">
-                <div class="svc-card__image">
-                    <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800" alt="Color & Highlights" loading="lazy">
-                    <div class="svc-card__image-overlay"></div>
-                </div>
-                <div class="svc-card__body">
-                    <span class="svc-card__number">02</span>
-                    <h2 class="svc-card__title">Color & Highlights</h2>
-                    <p class="svc-card__text">
-                        Bespoke color artistry using Olaplex and premium Italian dyes for results 
-                        that are vibrant, dimensional, and unmistakably yours. Our colorists are 
-                        true artists — every shade hand-mixed, every placement deliberate.
-                    </p>
-                    <ul class="svc-card__highlights">
-                        <li>Full Color & Root Touch-Ups</li>
-                        <li>Balayage & Ombré</li>
-                        <li>Partial & Full Highlights</li>
-                        <li>Color Correction</li>
-                    </ul>
-                    <a href="/contact.html" class="btn btn-primary">Book This Service</a>
-                </div>
-            </div>
-
-            <!-- Facial Treatments -->
-            <div class="svc-card svc-card--wide">
-                <div class="svc-card__image">
-                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800" alt="Facial Treatments" loading="lazy">
-                    <div class="svc-card__image-overlay"></div>
-                </div>
-                <div class="svc-card__body">
-                    <span class="svc-card__number">03</span>
-                    <h2 class="svc-card__title">Facial Treatments</h2>
-                    <p class="svc-card__text">
-                        Rejuvenating facials using advanced techniques and organic skincare 
-                        products. Each session is customized to your skin type and concerns — 
-                        from deep hydration to anti-aging restoration.
-                    </p>
-                    <ul class="svc-card__highlights">
-                        <li>Classic & Hydrating Facials</li>
-                        <li>Anti-Aging & Firming</li>
-                        <li>Acne & Pore Treatment</li>
-                        <li>LED Light Therapy</li>
-                    </ul>
-                    <a href="/contact.html" class="btn btn-primary">Book This Service</a>
-                </div>
-            </div>
-
-            <!-- Nail Artistry -->
-            <div class="svc-card svc-card--wide svc-card--reverse">
-                <div class="svc-card__image">
-                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800" alt="Nail Artistry" loading="lazy">
-                    <div class="svc-card__image-overlay"></div>
-                </div>
-                <div class="svc-card__body">
-                    <span class="svc-card__number">04</span>
-                    <h2 class="svc-card__title">Nail Artistry</h2>
-                    <p class="svc-card__text">
-                        Luxurious manicures and pedicures elevated to an art form. Our nail 
-                        technicians combine flawless technique with creative designs — from 
-                        classic French to elaborate nail art.
-                    </p>
-                    <ul class="svc-card__highlights">
-                        <li>Luxury Manicure & Pedicure</li>
-                        <li>Gel & Acrylic Extensions</li>
-                        <li>Nail Art & Embellishments</li>
-                        <li>Paraffin & Spa Treatments</li>
-                    </ul>
-                    <a href="/contact.html" class="btn btn-primary">Book This Service</a>
-                </div>
-            </div>
-
-            <!-- Bridal & Makeup -->
-            <div class="svc-card svc-card--wide">
-                <div class="svc-card__image">
-                    <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800" alt="Bridal & Makeup" loading="lazy">
-                    <div class="svc-card__image-overlay"></div>
-                </div>
-                <div class="svc-card__body">
-                    <span class="svc-card__number">05</span>
-                    <h2 class="svc-card__title">Bridal & Makeup</h2>
-                    <p class="svc-card__text">
-                        Professional makeup artistry for your most special moments — and everyday 
-                        glamour too. From trial to big day, we ensure you look absolutely radiant 
-                        and feel like the best version of yourself.
-                    </p>
-                    <ul class="svc-card__highlights">
-                        <li>Bridal Makeup & Hair Package</li>
-                        <li>Engagement & Pre-Wedding Looks</li>
-                        <li>Special Occasion Makeup</li>
-                        <li>Makeup Lessons</li>
-                    </ul>
-                    <a href="/contact.html" class="btn btn-primary">Book This Service</a>
-                </div>
-            </div>
-
-            <!-- Spa & Massage -->
-            <div class="svc-card svc-card--wide svc-card--reverse">
-                <div class="svc-card__image">
-                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800" alt="Spa & Massage" loading="lazy">
-                    <div class="svc-card__image-overlay"></div>
-                </div>
-                <div class="svc-card__body">
-                    <span class="svc-card__number">06</span>
-                    <h2 class="svc-card__title">Spa & Massage</h2>
-                    <p class="svc-card__text">
-                        Holistic body treatments and therapeutic massages for complete relaxation. 
-                        Step into our tranquil spa and let the world melt away — every treatment 
-                        is designed to restore balance and rejuvenate your spirit.
-                    </p>
-                    <ul class="svc-card__highlights">
-                        <li>Swedish & Deep Tissue Massage</li>
-                        <li>Hot Stone Therapy</li>
-                        <li>Aromatherapy Sessions</li>
-                        <li>Body Wraps & Scrubs</li>
-                    </ul>
-                    <a href="/contact.html" class="btn btn-primary">Book This Service</a>
-                </div>
-            </div>
-
         </div>
     </section>
 
@@ -227,11 +171,11 @@
         <div class="svc-cta__overlay"></div>
         <div class="container">
             <div class="svc-cta__inner">
-                <h2>Ready for Your Transformation?</h2>
-                <p>Book your appointment today and experience luxury beauty at its finest.</p>
+                <h2>Book your visit</h2>
+                <p>Message or call — we’ll confirm your time.</p>
                 <div class="svc-cta__buttons">
-                    <a href="/contact.html" class="btn btn-primary">Book Appointment</a>
-                    <a href="tel:+923214927889" class="btn btn-outline" style="color: var(--color-gold-light); border-color: rgb(201 169 98 / 0.5);">Call Now</a>
+                    <a href="/contact.html" class="btn btn-primary">Book appointment</a>
+                    <a href="tel:+923214927889" class="btn btn-outline" style="color: var(--color-gold-light); border-color: rgb(201 169 98 / 0.5);">Call now</a>
                 </div>
             </div>
         </div>
@@ -271,13 +215,12 @@
                             <li><a href="/services.html">Color & Highlights</a></li>
                             <li><a href="/services.html">Facial Treatments</a></li>
                             <li><a href="/services.html">Nail Artistry</a></li>
-                            <li><a href="/services.html">Bridal Packages</a></li>
-                            <li><a href="/services.html">Spa & Massage</a></li>
+                            <li><a href="/services.html">Bridal & Makeup</a></li>
                         </ul>
                     </div>
                     <div class="footer-contact">
                         <h4>Contact</h4>
-                        <p>125-B TNT Abpara Housing Society<br>Raiwind Road, Lahore</p>
+                        <p>125-B, TNT Phase, Abpara Housing Society<br>Raiwind Road · Lahore, Pakistan</p>
                         <p><a href="tel:+923214927889">+92 321 492 7889</a></p>
                         <p style="margin-top: 0.5rem;">
                             <a href="https://wa.me/923214927889" target="_blank" class="whatsapp-link" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #25D366; font-weight: 500;">
@@ -315,31 +258,45 @@
 
         const navBackdrop = document.createElement('div');
         navBackdrop.className = 'nav-backdrop';
+        navBackdrop.setAttribute('aria-hidden', 'true');
         document.body.appendChild(navBackdrop);
 
         function closeNav() {
+            if (!hamburger || !navMenu) return;
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             navBackdrop.classList.remove('active');
             document.body.style.overflow = '';
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-label', 'Open menu');
+            navBackdrop.setAttribute('aria-hidden', 'true');
         }
 
-        hamburger.addEventListener('click', function() {
-            if (navMenu.classList.contains('active')) {
-                closeNav();
-            } else {
-                hamburger.classList.add('active');
-                navMenu.classList.add('active');
-                navBackdrop.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
+        function openNav() {
+            if (!hamburger || !navMenu) return;
+            hamburger.classList.add('active');
+            navMenu.classList.add('active');
+            navBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            hamburger.setAttribute('aria-expanded', 'true');
+            hamburger.setAttribute('aria-label', 'Close menu');
+            navBackdrop.setAttribute('aria-hidden', 'false');
+        }
 
-        navBackdrop.addEventListener('click', closeNav);
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', closeNav);
-        });
+        if (hamburger && navMenu) {
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.addEventListener('click', function () {
+                if (navMenu.classList.contains('active')) {
+                    closeNav();
+                } else {
+                    openNav();
+                }
+            });
+            navBackdrop.addEventListener('click', closeNav);
+            document.querySelectorAll('.nav-link').forEach(function (link) {
+                link.addEventListener('click', closeNav);
+            });
+        }
 
         let ticking = false;
         function handleScroll() {
@@ -367,9 +324,9 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.svc-card').forEach((card, i) => {
-            card.style.transitionDelay = `${i * 0.08}s`;
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.svc-mini').forEach((card, i) => {
+            card.style.transitionDelay = `${i * 0.06}s`;
             observer.observe(card);
         });
     </script>

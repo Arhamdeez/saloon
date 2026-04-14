@@ -50,35 +50,38 @@ const galleryImages = [
     alt: 'Makeup'
   },
   {
-    src: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400',
-    alt: 'Spa Treatments'
+    src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400',
+    alt: 'Salon interior'
   }
 ];
 
 const testimonialItems: CarouselItemData[] = [
   {
     id: 1,
-    title: 'Alexandra M.',
-    role: 'Regular Client',
+    title: 'Ayesha Khan',
+    role: 'Johar Town · Lahore',
     description:
-      "Nadia's transformed not just my hair, but my entire confidence. The team understood exactly what I wanted and delivered beyond my expectations. The atmosphere is pure luxury!",
-    avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100'
+      "Been coming here for my highlights for almost two years. Nadia actually listens — the colour fades the way she said it would, not brassy after two weeks. Worth the drive even when traffic on Raiwind is bad.",
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Ayesha+Khan&background=e8dfd4&color=2a2218&size=128&rounded=true&bold=true'
   },
   {
     id: 2,
-    title: 'Jennifer L.',
-    role: 'Bridal Client',
+    title: 'Fatima Zahra',
+    role: 'Bridal makeup · Valima',
     description:
-      "My wedding day was perfect thanks to the incredible team at Nadia's. From the trial to the big day, they made me feel like a princess. Absolutely recommend for brides!",
-    avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100'
+      "Did my valima look with them — makeup and hair stayed put through dinner and photos. My khala kept asking which salon; I’ve already sent two cousins on WhatsApp. Very hygienic, which matters to me.",
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Fatima+Zahra&background=ddd2c4&color=2a2218&size=128&rounded=true&bold=true'
   },
   {
     id: 3,
-    title: 'Sarah K.',
-    role: 'Color Client',
+    title: 'Zainab Hussain',
+    role: 'Gulberg · Lahore',
     description:
-      "I've been coming to Nadia's for three years and wouldn't trust anyone else with my color. The colorists here are true artists – my balayage always looks natural and stunning.",
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'
+      "Pricing is fair for Lahore and they don’t rush you out. Had a facial before Eid last year; skin was calm for family dinners. Booking on WhatsApp is straightforward — they reply when the salon’s open.",
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Zainab+Hussain&background=c9b8a8&color=1a1512&size=128&rounded=true&bold=true'
   }
 ];
 

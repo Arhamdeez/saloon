@@ -3,22 +3,47 @@
  * Main JavaScript File
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // ========================================
-    // PRELOADER
-    // ========================================
+// Preloader: hide after DOM + short branded beat — NOT after full window.load (images/gallery
+// assets would keep the splash up while you scroll or click). Full reload / refresh still shows splash.
+(function initPreloader() {
     const preloader = document.querySelector('.preloader');
-    
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            preloader.classList.add('hidden');
-        }, 300);
-    });
-    
-    setTimeout(() => {
+    if (!preloader) return;
+
+    const MIN_MS = 420;
+    const HARD_CAP_MS = 3200;
+    const t0 = performance.now();
+    let hidden = false;
+
+    function hide() {
+        if (hidden) return;
+        hidden = true;
         preloader.classList.add('hidden');
-    }, 2000);
+    }
+
+    function scheduleHide() {
+        const elapsed = performance.now() - t0;
+        const wait = Math.max(0, MIN_MS - elapsed);
+        setTimeout(hide, wait);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', scheduleHide, { once: true });
+    } else {
+        scheduleHide();
+    }
+
+    setTimeout(hide, HARD_CAP_MS);
+
+    window.addEventListener(
+        'pageshow',
+        function (ev) {
+            if (ev.persisted) hide();
+        },
+        { passive: true }
+    );
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
     
     // ========================================
     // NAVBAR SCROLL EFFECT
@@ -58,51 +83,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const navBackdrop = document.createElement('div');
     navBackdrop.className = 'nav-backdrop';
+    navBackdrop.setAttribute('aria-hidden', 'true');
     document.body.appendChild(navBackdrop);
 
     function closeNav() {
+        if (!hamburger || !navMenu) return;
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
         navBackdrop.classList.remove('active');
         document.body.style.overflow = '';
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+        navBackdrop.setAttribute('aria-hidden', 'true');
     }
 
     function openNav() {
+        if (!hamburger || !navMenu) return;
         hamburger.classList.add('active');
         navMenu.classList.add('active');
         navBackdrop.classList.add('active');
         document.body.style.overflow = 'hidden';
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Close menu');
+        navBackdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    if (hamburger && navMenu) {
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.addEventListener('click', function () {
+            if (navMenu.classList.contains('active')) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+
+        navBackdrop.addEventListener('click', closeNav);
+
+        navLinks.forEach(function (link) {
+            link.addEventListener('click', closeNav);
+        });
     }
     
-    hamburger.addEventListener('click', function() {
-        if (navMenu.classList.contains('active')) {
-            closeNav();
-        } else {
-            openNav();
-        }
-    });
+    // ========================================
+    // SMOOTH SCROLL FOR NAVIGATION (uses CSS scroll-margin on section[id])
+    // ========================================
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    navBackdrop.addEventListener('click', closeNav);
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', closeNav);
-    });
-    
-    // ========================================
-    // SMOOTH SCROLL FOR NAVIGATION
-    // ========================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#') {
+                if (href === '#') {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: prefersReducedMotion.matches ? 'auto' : 'smooth'
+                    });
+                }
+                return;
+            }
+            const target = document.querySelector(href);
             if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+                    block: 'start'
                 });
             }
         });
@@ -140,6 +186,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     window.addEventListener('scroll', updateActiveNavLink, { passive: true });
+
+    if (navLinks.length && sections.length) {
+        updateActiveNavLink();
+    }
     
     // ========================================
     // SCROLL ANIMATIONS

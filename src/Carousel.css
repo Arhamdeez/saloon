@@ -1,14 +1,17 @@
 .carousel-container {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(201, 169, 98, 0.22);
-  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-radius);
   padding: 12px;
-  --outer-r: 20px;
+  --outer-r: var(--glass-radius);
   --p-distance: 10px;
   margin-inline: auto;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(12px);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  isolation: isolate;
 }
 
 .carousel-track {
@@ -23,11 +26,14 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  border: 1px solid rgba(201, 169, 98, 0.18);
+  border: 1px solid var(--glass-border);
   border-radius: calc(var(--outer-r) - var(--p-distance));
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(201, 169, 98, 0.04) 100%);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur-soft);
+  -webkit-backdrop-filter: var(--glass-blur-soft);
   overflow: hidden;
   cursor: grab;
+  box-shadow: var(--glass-shadow);
 }
 
 .carousel-item:active {
@@ -35,14 +41,14 @@
 }
 
 .carousel-container.round {
-  border: 1px solid rgba(201, 169, 98, 0.22);
+  border: 1px solid var(--glass-border);
 }
 
 .carousel-item.round {
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(201, 169, 98, 0.04) 100%);
+  background: var(--glass-bg-strong);
   position: relative;
   bottom: 0.1em;
-  border: 1px solid rgba(201, 169, 98, 0.18);
+  border: 1px solid var(--glass-border);
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -76,17 +82,21 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: #fff;
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur-soft);
+  -webkit-backdrop-filter: var(--glass-blur-soft);
+  border: 1px solid var(--glass-border);
   overflow: hidden;
   flex-shrink: 0;
+  box-shadow: var(--glass-shadow);
 }
 
 .carousel-icon-container:has(.carousel-avatar) {
   width: 40px;
   height: 40px;
   padding: 0;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1.5px solid rgba(201, 169, 98, 0.4);
+  background: var(--glass-bg);
+  border: 1.5px solid rgba(201, 169, 98, 0.35);
 }
 
 .carousel-avatar {
@@ -98,7 +108,7 @@
 .carousel-icon {
   height: 16px;
   width: 16px;
-  color: #060010;
+  color: #1a1a1a;
 }
 
 .carousel-item-meta {
@@ -108,14 +118,14 @@
 .carousel-item-title {
   font-weight: 600;
   font-size: 15px;
-  color: #faf8f5;
+  color: #1a1a1a;
   line-height: 1.2;
   font-family: var(--font-heading, 'Playfair Display', Georgia, serif);
 }
 
 .carousel-item-role {
   font-size: 10px;
-  color: rgba(201, 169, 98, 0.7);
+  color: rgba(90, 82, 74, 0.75);
   text-transform: uppercase;
   letter-spacing: 0.14em;
   margin-top: 2px;
@@ -126,7 +136,7 @@
 }
 
 .carousel-stars {
-  color: #c9a962;
+  color: #b8984a;
   font-size: 11px;
   letter-spacing: 2px;
   margin-bottom: 8px;
@@ -135,7 +145,7 @@
 .carousel-item-description {
   font-size: 13px;
   line-height: 1.6;
-  color: rgba(250, 248, 245, 0.78);
+  color: rgba(42, 38, 34, 0.82);
   margin: 0;
   font-style: italic;
 }
@@ -167,5 +177,5 @@
 }
 
 .carousel-indicator.inactive {
-  background-color: rgba(201, 169, 98, 0.25);
+  background-color: rgba(201, 169, 98, 0.28);
 }

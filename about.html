@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0D0D0D">
+    <meta name="color-scheme" content="light dark">
     <title>About Us | Nadia's Saloon</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +40,7 @@
                 <span class="logo-text"><span class="signature">Nadia's</span></span>
                 <span class="logo-tagline">Saloon</span>
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="primary-menu">
                 <li><a href="/" class="nav-link">Home</a></li>
                 <li><a href="/about.html" class="nav-link active">About</a></li>
                 <li><a href="/services.html" class="nav-link">Services</a></li>
@@ -48,7 +50,7 @@
                 <li><a href="/contact.html" class="nav-link">Contact</a></li>
             </ul>
             <a href="/contact.html" class="nav-cta">Book Now</a>
-            <button class="hamburger" aria-label="Toggle menu">
+            <button type="button" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -80,8 +82,8 @@
                 </div>
                 <div class="abt-block__body">
                     <h2 class="abt-block__title">Who We Are</h2>
-                    <p>Founded in 2010 in Lahore, Nadia's Saloon is a premium beauty destination built on skill, trust, and attention to detail. We offer expert hair styling, color, facials, bridal makeup, nail art, and spa treatments — all under one roof.</p>
-                    <p>Every service is delivered by trained professionals using top-tier products from internationally recognized brands.</p>
+                    <p>Founded in 2010 in Lahore, Pakistan, Nadia's Saloon is a premium beauty destination built on skill, trust, and attention to detail. We offer expert hair styling, colour, facials, bridal makeup, and nail art — all under one roof.</p>
+                    <p>Every service is delivered by trained professionals using trusted professional lines suited to our weather and hair types.</p>
                 </div>
             </div>
 
@@ -94,7 +96,7 @@
                     <ul class="abt-list">
                         <li><strong>15+ Years Experience</strong> — Proven expertise across all beauty services</li>
                         <li><strong>Premium Products</strong> — Olaplex, Italian dyes, and organic skincare</li>
-                        <li><strong>Trained Professionals</strong> — Internationally trained stylists and artists</li>
+                        <li><strong>Trained team</strong> — Experienced stylists and artists focused on lasting results</li>
                         <li><strong>Relaxing Ambiance</strong> — A calm, private space designed for comfort</li>
                     </ul>
                 </div>
@@ -153,13 +155,12 @@
                             <li><a href="/services.html">Color & Highlights</a></li>
                             <li><a href="/services.html">Facial Treatments</a></li>
                             <li><a href="/services.html">Nail Artistry</a></li>
-                            <li><a href="/services.html">Bridal Packages</a></li>
-                            <li><a href="/services.html">Spa & Massage</a></li>
+                            <li><a href="/services.html">Bridal & Makeup</a></li>
                         </ul>
                     </div>
                     <div class="footer-contact">
                         <h4>Contact</h4>
-                        <p>125-B TNT Abpara Housing Society<br>Raiwind Road, Lahore</p>
+                        <p>125-B, TNT Phase, Abpara Housing Society<br>Raiwind Road · Lahore, Pakistan</p>
                         <p><a href="tel:+923214927889">+92 321 492 7889</a></p>
                         <p style="margin-top: 0.5rem;">
                             <a href="https://wa.me/923214927889" target="_blank" class="whatsapp-link" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #25D366; font-weight: 500;">
@@ -197,31 +198,45 @@
 
         const navBackdrop = document.createElement('div');
         navBackdrop.className = 'nav-backdrop';
+        navBackdrop.setAttribute('aria-hidden', 'true');
         document.body.appendChild(navBackdrop);
 
         function closeNav() {
+            if (!hamburger || !navMenu) return;
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             navBackdrop.classList.remove('active');
             document.body.style.overflow = '';
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-label', 'Open menu');
+            navBackdrop.setAttribute('aria-hidden', 'true');
         }
 
-        hamburger.addEventListener('click', function() {
-            if (navMenu.classList.contains('active')) {
-                closeNav();
-            } else {
-                hamburger.classList.add('active');
-                navMenu.classList.add('active');
-                navBackdrop.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
+        function openNav() {
+            if (!hamburger || !navMenu) return;
+            hamburger.classList.add('active');
+            navMenu.classList.add('active');
+            navBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            hamburger.setAttribute('aria-expanded', 'true');
+            hamburger.setAttribute('aria-label', 'Close menu');
+            navBackdrop.setAttribute('aria-hidden', 'false');
+        }
 
-        navBackdrop.addEventListener('click', closeNav);
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', closeNav);
-        });
+        if (hamburger && navMenu) {
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.addEventListener('click', function () {
+                if (navMenu.classList.contains('active')) {
+                    closeNav();
+                } else {
+                    openNav();
+                }
+            });
+            navBackdrop.addEventListener('click', closeNav);
+            document.querySelectorAll('.nav-link').forEach(function (link) {
+                link.addEventListener('click', closeNav);
+            });
+        }
 
         let ticking = false;
         function handleScroll() {

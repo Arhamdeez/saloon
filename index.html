@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nadia's Saloon | Luxury Hair & Spa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0D0D0D">
+    <meta name="color-scheme" content="light dark">
+    <title>Nadia's Saloon | Luxury Hair & Beauty</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
@@ -40,11 +42,11 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">
+            <a href="/" class="logo">
                 <span class="logo-text"><span class="signature">Nadia's</span></span>
                 <span class="logo-tagline">Saloon</span>
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="primary-menu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="services.html" class="nav-link">Services</a></li>
@@ -54,7 +56,7 @@
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
             <a href="contact.html" class="nav-cta">Book Now</a>
-            <button class="hamburger" aria-label="Toggle menu">
+            <button type="button" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -88,7 +90,7 @@
     </section>
 
     <!-- About Teaser -->
-    <section id="about" class="about-teaser">
+    <section id="about" class="about-teaser home-band home-band--light">
         <div class="container">
             <div class="about-teaser__inner">
                 <div class="about-teaser__text">
@@ -105,9 +107,9 @@
     </section>
 
     <!-- Services Teaser -->
-    <section id="services" class="services">
+    <section id="services" class="services home-band home-band--dark">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header light">
                 <span class="section-subtitle">Our Services</span>
                 <h2 class="section-title">What We Offer</h2>
             </div>
@@ -150,7 +152,7 @@
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
+    <section id="gallery" class="gallery home-band home-band--light">
         <div class="container">
             <div class="section-header">
                 <span class="section-subtitle">Our Work</span>
@@ -161,9 +163,9 @@
     </section>
 
     <!-- Team Section -->
-    <section id="team" class="team">
+    <section id="team" class="team home-band home-band--dark">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header light">
                 <span class="section-subtitle">The Artist</span>
                 <h2 class="section-title">Meet Nadia</h2>
             </div>
@@ -180,7 +182,7 @@
                     <div class="team-info">
                         <h3>Nadia</h3>
                         <span class="team-role">Master Stylist & Beauty Expert</span>
-                        <p>15+ years of experience. Trained in Paris & Milan. Specializing in cuts, color, facials, and bridal beauty.</p>
+                        <p>15+ years serving clients across Lahore. Advanced training in colour and bridal work — cuts, facials, and makeup tailored for our climate and occasions.</p>
                     </div>
                 </div>
             </div>
@@ -188,12 +190,11 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="testimonials-bg"></div>
+    <section id="testimonials" class="testimonials home-band home-band--light">
         <div class="container">
-            <div class="section-header light">
-                <span class="section-subtitle">Client Love</span>
-                <h2 class="section-title">What Our Clients Say</h2>
+            <div class="section-header">
+                <span class="section-subtitle">Word from Lahore</span>
+                <h2 class="section-title">What clients say</h2>
             </div>
             <div id="testimonials-root" class="testimonials-carousel-wrap" aria-live="polite"></div>
         </div>
@@ -205,7 +206,7 @@
             <div class="container">
                 <div class="footer-grid">
                     <div class="footer-brand">
-                        <a href="#" class="footer-logo">
+                        <a href="/" class="footer-logo">
                             <span class="logo-text"><span class="signature">Nadia's</span></span>
                             <span class="logo-tagline">Saloon</span>
                         </a>
@@ -233,13 +234,12 @@
                             <li><a href="services.html">Color & Highlights</a></li>
                             <li><a href="services.html">Facial Treatments</a></li>
                             <li><a href="services.html">Nail Artistry</a></li>
-                            <li><a href="services.html">Bridal Packages</a></li>
-                            <li><a href="services.html">Spa & Massage</a></li>
+                            <li><a href="services.html">Bridal & Makeup</a></li>
                         </ul>
                     </div>
                     <div class="footer-contact">
                         <h4>Contact</h4>
-                        <p>125-B TNT Abpara Housing Society<br>Raiwind Road, Lahore</p>
+                        <p>125-B, TNT Phase, Abpara Housing Society<br>Raiwind Road · Lahore, Pakistan</p>
                         <p><a href="tel:+923214927889">+92 321 492 7889</a></p>
                         <p style="margin-top: 0.5rem;">
                             <a href="https://wa.me/923214927889" target="_blank" class="whatsapp-link" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #25D366; font-weight: 500;">

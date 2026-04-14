@@ -46,8 +46,8 @@ const galleryImages = [
     alt: 'Makeup'
   },
   {
-    src: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400',
-    alt: 'Spa Treatments'
+    src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400',
+    alt: 'Salon interior'
   }
 ];
 

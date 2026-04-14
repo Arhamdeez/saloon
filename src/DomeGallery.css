@@ -228,8 +228,8 @@ main.sphere-main {
   inset: 0;
   z-index: 9990;
   background: rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(24px) saturate(1.1);
-  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  backdrop-filter: var(--glass-blur-dark, blur(28px) saturate(1.22));
+  -webkit-backdrop-filter: var(--glass-blur-dark, blur(28px) saturate(1.22));
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: auto;
